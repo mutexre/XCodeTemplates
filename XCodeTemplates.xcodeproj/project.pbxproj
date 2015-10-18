@@ -6,10 +6,17 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		92ABB3421BD3491D009EB354 /* Basic GLFW.xctemplate */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Basic GLFW.xctemplate"; sourceTree = "<group>"; };
+		92ABB3431BD349DC009EB354 /* install.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		92ABB33A1BD348DB009EB354 = {
 			isa = PBXGroup;
 			children = (
+				92ABB3431BD349DC009EB354 /* install.sh */,
+				92ABB3421BD3491D009EB354 /* Basic GLFW.xctemplate */,
 			);
 			sourceTree = "<group>";
 		};
