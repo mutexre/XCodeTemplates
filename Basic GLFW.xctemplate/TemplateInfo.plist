@@ -50,10 +50,34 @@
 	<key>Nodes</key>
 	<array>
 		<string>main.cpp</string>
+		<string>callbacks.h</string>
+		<string>callbacks.cpp</string>
+		<string>shared.h</string>
+		<string>option.h</string>
 		<string>Info.plist:NSHighResolutionCapable</string>
 	</array>
 	<key>Definitions</key>
 	<dict>
+		<key>option.h</key>
+		<dict>
+			<key>Path</key>
+			<string>option.h</string>
+		</dict>
+		<key>shared.h</key>
+		<dict>
+			<key>Path</key>
+			<string>shared.h</string>
+		</dict>
+		<key>callbacks.cpp</key>
+		<dict>
+			<key>Path</key>
+			<string>callbacks.cpp</string>
+		</dict>
+		<key>callbacks.h</key>
+		<dict>
+			<key>Path</key>
+			<string>callbacks.h</string>
+		</dict>
 		<key>main.cpp</key>
 		<dict>
 			<key>Path</key>

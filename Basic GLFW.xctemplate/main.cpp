@@ -3,14 +3,16 @@
 #include <stdlib.h>
 #define GLFW_INCLUDE_GLCOREARB
 #include <GLFW/glfw3.h>
+#include "callbacks.h"
+#include "shared.h"
 
-static void errorCallback(int error, const char* description) {
+void errorCallback(int error, const char* description) {
     fputs(description, stderr);
 }
 
-static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
+void reshape(float w, float h) {
+    //auto aspect = w / h;
+    glViewport(0, 0, w, h);
 }
 
 auto glfwWindowDeleter = [](GLFWwindow* window) {
@@ -27,20 +29,30 @@ int main()
 
     atexit(glfwTerminate);
 
-    auto _window = glfwCreateWindow(800, 600, "", nullptr, nullptr);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    int w = 800;
+    int h = 600;
+    auto _window = glfwCreateWindow(w, h, "", nullptr, nullptr);
     std::unique_ptr<GLFWwindow, decltype(glfwWindowDeleter)> window(_window, glfwWindowDeleter);
-    if (!window) exit(1);
+    if (!window) {
+        fprintf(stderr, "Failed to create GLFW window\n");
+        exit(1);
+    }
 
     glfwMakeContextCurrent(window.get());
     glfwSwapInterval(1);
-    glfwSetKeyCallback(window.get(), keyCallback);
-    while (!glfwWindowShouldClose(window.get()))
-    {
-        float ratio;
-        int width, height;
-        glfwGetFramebufferSize(window.get(), &width, &height);
-        ratio = width / (float) height;
-        glViewport(0, 0, width, height);
+
+    glfwGetFramebufferSize(window.get(), &w, &h);
+    reshape(w, h);
+
+    setupGlfwCallbacks(window.get());
+
+    glClearColor(0.f, 1.f, 1.f, 1.f);
+    while (!glfwWindowShouldClose(window.get())) {
         glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window.get());
         glfwPollEvents();

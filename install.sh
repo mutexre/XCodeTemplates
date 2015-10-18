@@ -1,11 +1,20 @@
 #!/bin/sh
 
-TargetDir=~/Library/Developer/Xcode/Templates
-TargetDir3D=$TargetDir"/3D"
+TargetDir=~/Library/Developer/Xcode/Templates/com.mutexre
 
 Glfw="Basic GLFW.xctemplate"
-GlfwTargetPath="$TargetDir3D/$Glfw"
+GlfwTargetPath="$TargetDir/$Glfw"
 
-rm -rf "$GlfwTargetPath"
-mkdir "$TargetDir3D"
-cp -r "$Glfw" "$GlfwTargetPath"
+if [ -e "$TargetDir" ]; then
+    if [ -d "$TargetDir" ]; then
+        rm -r "$GlfwTargetPath"
+        cp -r "$Glfw" "$GlfwTargetPath"
+    else
+        rm "$TargetDir"
+        mkdir "$TargetDir"
+        cp -r "$Glfw" "$GlfwTargetPath"
+    fi
+else
+    mkdir "$TargetDir"
+    cp -r "$Glfw" "$GlfwTargetPath"
+fi
